@@ -8,7 +8,7 @@ import {
   FaBook,
   FaCalendarAlt,
 } from 'react-icons/fa';
-import BottomNavbar from './components/navbar';
+import BottomNavbar from './components/Navbar';
 import BarGraph from './components/BarGraph';
 import StatsDashboard from './components/Stats';
 import Brand from './components/Brand';
