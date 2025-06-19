@@ -25,9 +25,9 @@ export default function BottomNavbar() {
   return (
     <div className="fixed bottom-6 w-full flex justify-center z-50">
       <div className="flex gap-6 bg-gray-800 dark:bg-gray-200 text-white dark:text-black px-6 py-3 rounded-full shadow-lg items-center">
-        <NavItem icon={<FaBox />} label="Brand Kits" targetId="brand" />
-        <NavItem icon={<FaCogs />} label="Stats" targetId="stats" />
         <NavItem icon={<FaChartPie />} label="Graphs" targetId="graph" />
+        <NavItem icon={<FaCogs />} label="Stats" targetId="stats" />
+        <NavItem icon={<FaBox />} label="Brand Kits" targetId="brand" />
         <NavItem icon={<FaBookOpen />} label="Services" targetId="services" />
         <NavItem icon={<FaCalendarAlt />} label="Book" targetId="book" />
 
