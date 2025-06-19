@@ -1,113 +1,64 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { useTheme } from "next-themes";
+import { useEffect, useState } from 'react';
+import {
+  FaBox,
+  FaCogs,
+  FaChartPie,
+  FaBookOpen,
+  FaCalendarAlt,
+  FaMoon,
+  FaSun,
+} from 'react-icons/fa';
 
-const Navbar = () => {
-  const [navOpen, setNavOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  const toggleNav = () => setNavOpen(!navOpen);
+export default function BottomNavbar() {
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
-  ];
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   return (
-    <nav className="bg-white dark:bg-gray-950 fixed top-0 w-full z-50 shadow dark:shadow-md transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <a href="#home" className="text-2xl font-semibold tracking-tight text-rose-500">
-          &lt;Prashant /&gt;
-        </a>
+    <div className="fixed bottom-6 w-full flex justify-center z-50">
+      <div className="flex gap-6 bg-gray-800 dark:bg-gray-200 text-white dark:text-black px-6 py-3 rounded-full shadow-lg items-center">
+        <NavItem icon={<FaBox />} label="Brand Kits" targetId="brand" />
+        <NavItem icon={<FaCogs />} label="Stats" targetId="stats" />
+        <NavItem icon={<FaChartPie />} label="Graphs" targetId="graph" />
+        <NavItem icon={<FaBookOpen />} label="Services" targetId="services" />
+        <NavItem icon={<FaCalendarAlt />} label="Book" targetId="book" />
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex space-x-8 items-center">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="transition text-black hover:text-rose-500 dark:text-white dark:hover:text-rose-500"
-            >
-              {link.name}
-            </a>
-          ))}
-
-          {/* Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="transition text-black hover:text-rose-500 dark:text-white dark:hover:text-rose-500"
-              aria-label="Toggle Dark Mode"
-            >
-              {theme === "dark" ? (
-                <MdLightMode className="w-5 h-5" />
-              ) : (
-                <MdDarkMode className="w-5 h-5" />
-              )}
-            </button>
-          )}
-        </div>
-
-        {/* ✅ Mobile Menu Button*/}
-        <div className="md:hidden p-1 rounded-md flex justify-center items-center bg-gray-200 dark:bg-gray-800">
-          <button onClick={toggleNav} className="text-black dark:text-white focus:outline-none">
-            {navOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-          </button>
-        </div>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="flex flex-col items-center text-sm hover:text-cyan-400 transition-all"
+        >
+          <div className="text-lg">
+            {darkMode ? <FaSun /> : <FaMoon />}
+          </div>
+        </button>
       </div>
-
-      {/* ✅ Mobile Nav Links */}
-      {navOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-950 px-6 pb-4 pt-4 space-y-4 shadow-lg border-t-2 border-gray-200 dark:border-gray-900">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setNavOpen(false)}
-              className="block text-black hover:text-rose-500 dark:text-white dark:hover:text-rose-500 transition"
-            >
-              {link.name}
-            </a>
-          ))}
-
-          {/* Mobile Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-                setNavOpen(false);
-              }}
-              className="flex items-center space-x-2 text-black hover:text-rose-500 dark:text-white dark:hover:text-rose-500 transition"
-            >
-              {theme === "dark" ? (
-                <>
-                  <MdLightMode className="w-5 h-5" />
-                  <span>Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <MdDarkMode className="w-5 h-5" />
-                  <span>Dark Mode</span>
-                </>
-              )}
-            </button>
-          )}
-        </div>
-      )}
-    </nav>
+    </div>
   );
-};
+}
 
-export default Navbar;
+function NavItem({ icon, label, targetId }) {
+  const handleClick = () => {
+    const section = document.getElementById(targetId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="flex flex-col items-center md:text-sm hover:text-cyan-400 transition-all"
+    >
+      <div className="text-lg md:text-2xl">{icon}</div>
+      <span className="text-xs hidden md:inline">{label}</span>
+    </button>
+  );
+}

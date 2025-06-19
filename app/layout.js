@@ -1,11 +1,10 @@
-// app/layout.js
 import '@/app/_styles/global.css';
 import { ThemeProvider } from 'next-themes';
-import Navbar from './components/Navbar';
+import LayoutClient from './layout-client';
 
 export const metadata = {
-  title: 'Portfolio',
-  description: 'My personal portfolio website.',
+  title: 'MyWebsite',
+  description: '',
 };
 
 export default function RootLayout({ children }) {
@@ -13,8 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <Navbar />
-          <main className='pt-12'>{children}</main>
+          <LayoutClient>{children}</LayoutClient>
         </ThemeProvider>
       </body>
     </html>
